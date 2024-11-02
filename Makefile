@@ -14,30 +14,39 @@ app:
 	docker-compose up
 
 # Build frontend based on architecture
+# build-frontend:
+# ifeq ($(ARCH), x86_64)
+# 	@echo "Building frontend for amd64 architecture"
+# 	docker buildx build --platform linux/amd64 -t $(FRONTEND_IMAGE) -f frontend/Dockerfile .
+# else ifeq ($(ARCH), arm64)
+# 	@echo "Building frontend for arm64 architecture"
+# 	docker buildx build --platform linux/arm64 -t $(FRONTEND_IMAGE) -f frontend/Dockerfile .
+# else
+# 	@echo "Unsupported architecture: $(ARCH)"
+# 	exit 1
+# endif
 build-frontend:
-ifeq ($(ARCH), x86_64)
-	@echo "Building frontend for amd64 architecture"
-	docker buildx build --platform linux/amd64 -t $(FRONTEND_IMAGE) -f frontend/Dockerfile .
-else ifeq ($(ARCH), arm64)
-	@echo "Building frontend for arm64 architecture"
-	docker buildx build --platform linux/arm64 -t $(FRONTEND_IMAGE) -f frontend/Dockerfile .
-else
-	@echo "Unsupported architecture: $(ARCH)"
-	exit 1
-endif
+	docker buildx -t $(FRONTEND_IMAGE) -f frontend/Dockerfile .
 
-# Build backend based on architecture
 build-backend:
-ifeq ($(ARCH), x86_64)
-	@echo "Building backend for amd64 architecture"
-	docker buildx build --platform linux/amd64 -t $(BACKEND_IMAGE) -f backend/Dockerfile .
-else ifeq ($(ARCH), arm64)
-	@echo "Building backend for arm64 architecture"
-	docker buildx build --platform linux/arm64 -t $(BACKEND_IMAGE) -f backend/Dockerfile .
-else
-	@echo "Unsupported architecture: $(ARCH)"
-	exit 1
-endif
+	docker build -t $(BACKEND_IMAGE) -f backend/Dockerfile .
+
+push-backend:
+	docker tag instatab-backend aaronk2711/itbackend
+	docker push aaronk2711/itbackend
+
+# # Build backend based on architecture
+# build-backend:
+# ifeq ($(ARCH), x86_64)
+# 	@echo "Building backend for amd64 architecture"
+# 	docker buildx build --platform linux/amd64 -t $(BACKEND_IMAGE) -f backend/Dockerfile .
+# else ifeq ($(ARCH), arm64)
+# 	@echo "Building backend for arm64 architecture"
+# 	docker buildx build --platform linux/arm64 -t $(BACKEND_IMAGE) -f backend/Dockerfile .
+# else
+# 	@echo "Unsupported architecture: $(ARCH)"
+# 	exit 1
+# endif
 
 
 

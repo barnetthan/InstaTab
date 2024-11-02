@@ -24,7 +24,7 @@ def convert_mp3_to_wav(mp3_file):
     audio.export(wav_file, format='wav')
     return wav_file
 
-def main(video_url):
+def take_input(video_url):
     mp4_file = download_youtube_video(video_url)
     mp3_file = convert_mp4_to_mp3(mp4_file)
     wav_file = convert_mp3_to_wav(mp3_file)
@@ -38,4 +38,4 @@ def main(video_url):
 if __name__ == "__main__":
     # Replace with your YouTube video URL
     youtube_video_url = 'https://www.youtube.com/watch?v=YOUR_VIDEO_ID'
-    main(youtube_video_url)
+    take_input(youtube_video_url)

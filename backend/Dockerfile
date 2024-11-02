@@ -16,8 +16,8 @@ RUN pip install --upgrade pip && \
 # Copy the rest of the backend code
 COPY backend ./
 
-# Expose the backend port (e.g., 5000 for Flask)
-EXPOSE 5000
+# Expose the backend port (e.g., 60000 for Flask)
+EXPOSE 60000
 
 # Set environment variable for Flask
 ENV FLASK_APP=app.py
@@ -25,4 +25,4 @@ ENV FLASK_ENV=development
 # Change to "production" for production
 
 # Command to run the app
-CMD ["flask", "run", "--host=0.0.0.0"]
+CMD ["flask", "run", "--host=0.0.0.0", "--port=60000"]

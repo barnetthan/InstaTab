@@ -1,5 +1,3 @@
-version: "3.8"
-
 services:
   frontend:
     image: aaronk2711/itfrontend
@@ -18,8 +16,10 @@ services:
     #   context: .
     #   dockerfile: aaronk2711/itbackend
     ports:
-      - "5000:5000"
+      - "60000:60000"
     volumes:
       - ./backend:/app # Mount the backend code for hot reloading
     environment:
       - FLASK_ENV=development # Run in development mode
+    stdin_open: true
+    tty: true
