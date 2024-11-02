@@ -7,6 +7,8 @@ WORKDIR /app
 # Copy requirements.txt
 COPY backend/requirements.txt ./
 
+RUN apt update && apt install -y ffmpeg
+
 # # Install dependencies
 # RUN pip install --no-cache-dir -r requirements.txt
 # Upgrade pip and install dependencies

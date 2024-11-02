@@ -1,41 +1,55 @@
-from pytube import YouTube
+from yt_dlp import YoutubeDL
 from pydub import AudioSegment
 import os
+import asyncio
+import hashlib
 
-def download_youtube_video(video_url):
+async def download_youtube_video(video_url):
     # Download the YouTube video
-    yt = YouTube(video_url)
-    print(f'Downloading: {yt.title}')
-    video_stream = yt.streams.filter(only_audio=True).first()
-    mp4_file = video_stream.download(filename='temp_video.mp4')
-    return mp4_file
+    # yt = YouTube(video_url)
+    # print(f'Downloading: {yt.title}')
+    # video_stream = yt.streams.filter(only_audio=True).first()
+    # mp4_file = video_stream.download(filename='temp_video.mp4')
+    # return mp4_file
+    video_hash = hashlib.md5(video_url.encode()).hexdigest()
+    mp3_file = f'temp_video_{video_hash}.mp3'
+    if os.path.exists(mp3_file):
+        print(f'Using cached file: {mp3_file}')
+        return mp3_file
 
-def convert_mp4_to_mp3(mp4_file):
-    # Convert MP4 to MP3
-    mp3_file = 'output.mp3'
-    audio = AudioSegment.from_file(mp4_file, format='mp4')
-    audio.export(mp3_file, format='mp3')
+
+    ydl_opts = {
+        'format': 'bestaudio/best',
+        'outtmpl': mp3_file,
+        'postprocessors': [{
+            'key': 'FFmpegExtractAudio',
+            'preferredcodec': 'mp3',
+            'preferredquality': '192',
+        }],
+    }
+
+    loop = asyncio.get_event_loop()
+    with YoutubeDL(ydl_opts) as ydl:
+        await loop.run_in_executor(None, ydl.download, [video_url])
+
     return mp3_file
 
 def convert_mp3_to_wav(mp3_file):
     # Convert MP3 to WAV
     wav_file = 'output.wav'
+    mp3_file += ".mp3"
     audio = AudioSegment.from_file(mp3_file, format='mp3')
     audio.export(wav_file, format='wav')
     return wav_file
 
-def take_input(video_url):
-    mp4_file = download_youtube_video(video_url)
-    mp3_file = convert_mp4_to_mp3(mp4_file)
+async def take_input(video_url):
+    print("in take_input")
+    mp3_file = await download_youtube_video(video_url)
+    print("consumed video")
     wav_file = convert_mp3_to_wav(mp3_file)
 
     # Clean up temporary files
-    os.remove(mp4_file)
-    os.remove(mp3_file)
+    # os.remove(mp3_file)
 
     print(f'Converted WAV file: {wav_file}')
-
-if __name__ == "__main__":
-    # Replace with your YouTube video URL
-    youtube_video_url = 'https://www.youtube.com/watch?v=YOUR_VIDEO_ID'
-    take_input(youtube_video_url)
+    return wav_file
