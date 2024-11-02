@@ -40,11 +40,11 @@ export default function NavBar({ curPage } : NavBarProps) {
           <NavLink
             className="uladjust"
             style={{
-              textDecorationLine: curPage == "account" ? "underline" : "none",
+              textDecorationLine: curPage == "favorites" ? "underline" : "none",
             }}
-            to="/account"
+            to="/favorites"
           >
-            Account
+            Favorites
           </NavLink>
         </li>
       </ul>
