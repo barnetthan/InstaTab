@@ -7,6 +7,41 @@ body {
   margin: 0;
 }
 
+@font-face {
+  font-family: 'Kamikaze 3D Gradient';
+  src: url('customFonts/subset-Kamikaze3DGradient-Regular.woff2') format('woff2'),
+      url('customFonts/subset-Kamikaze3DGradient-Regular.woff') format('woff');
+  font-weight: normal;
+  font-style: normal;
+  font-display: optional;
+}
+
+@font-face {
+  font-family: 'Kamikaze 3D Gradient';
+  src: url('customFonts/subset-Kamikaze3DGradient-Italic.woff2') format('woff2'),
+      url('customFonts/subset-Kamikaze3DGradient-Italic.woff') format('woff');
+  font-weight: normal;
+  font-style: italic;
+  font-display: optional;
+}
+
+@font-face {
+  font-family: 'Kamikaze';
+  src: url('customFonts/subset-Kamikaze-Regular.woff2') format('woff2'),
+      url('customFonts/subset-Kamikaze-Regular.woff') format('woff');
+  font-weight: normal;
+  font-style: normal;
+  font-display: optional;
+}
+
+@font-face {
+  font-family: 'Kamikaze';
+  src: url('customFonts/subset-Kamikaze-Italic.woff2') format('woff2'),
+      url('customFonts/subset-Kamikaze-Italic.woff') format('woff');
+  font-weight: normal;
+  font-style: italic;
+  font-display: optional;
+}
 
 .nav {
   background-color: #ffffff;
@@ -17,7 +52,7 @@ body {
   gap: 2rem;
   padding: 0 1 rem;
   border-bottom: thin solid gray;
-  font-family: 'Roboto';
+  font-family: 'Kamikaze';
 
 }
 
@@ -29,7 +64,7 @@ body {
 .nav h1 {
   padding-left: 2rem;
   padding-right: 1rem;
-  font-size: 25px;
+  font-size: 30px;
   font-weight: 400;
 }
 
@@ -52,12 +87,12 @@ body {
 
 .links {
   font-size: 16px;
-  font-family: 'Roboto';
+  font-family: 'Kamikaze';
 }
 
 .nav li {
   font-size: 16px;
-  font-family: 'Roboto';
+  font-family: 'Kamikaze';
 }
 
 .nav p {
@@ -66,7 +101,7 @@ body {
   padding-top: 10px;
   align-items: center;
   font-size: 16px;
-  font-family: 'Roboto';
+  font-family: 'Kamikaze';
   cursor: pointer;
   white-space: nowrap;
 }
