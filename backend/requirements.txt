@@ -1,5 +1,5 @@
-Flask==2.0.3
-Flask-CORS==3.0.10
+Flask>=2.0.3,<3.0
+Flask-CORS>=3.0.10
 
 # Libraries for downloading and processing audio
 pytube==12.1.0            # Download videos from YouTube
@@ -13,6 +13,6 @@ ffmpeg-python==0.2.0      # FFmpeg interface for audio processing
 scipy==1.7.3              # Required by librosa for some operations
 numpy==1.21.2             # Required by librosa and other libraries
 
-#other packages needed
+# other packages needed
 urlquote==2.1.0
-Werkzeug==3.1.1
+Werkzeug>=2.0,<3.0
