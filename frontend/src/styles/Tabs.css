@@ -1,0 +1,7 @@
+.tabBox {
+  display: inline-block; /* Allow width and height */
+  width: 3vw; 
+  height: 3vw; 
+  font-size: 3vw; 
+  text-align: center;
+}
