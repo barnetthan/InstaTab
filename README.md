@@ -2,6 +2,6 @@
 HackTX 2024
 
 TO START FRONTEND:
-cd frontend
-npm i
-npm run dev
+\n cd frontend
+\n npm i
+\n npm run dev
