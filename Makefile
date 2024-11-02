@@ -9,7 +9,7 @@ BACKEND_IMAGE=instatab-backend:latest
 .PHONY: app clean
 
 # Target to run Docker Compose
-app: build-frontend build-backend
+app:
 	@echo "Starting the application using Docker Compose..."
 	docker-compose up
 
