@@ -2,10 +2,10 @@ version: "3.8"
 
 services:
   frontend:
-    image: ${FRONTEND_IMAGE}
+    # image: ${FRONTEND_IMAGE}
     build:
       context: .
-      dockerfile: frontend/Dockerfile
+      dockerfile: aaronk2711/itfrontend
     ports:
       - "3000:3000"
     volumes:
@@ -13,10 +13,10 @@ services:
       - /app/node_modules # Persist node_modules inside the container
 
   backend:
-    image: ${BACKEND_IMAGE}
+    # image: ${BACKEND_IMAGE}
     build:
       context: .
-      dockerfile: backend/Dockerfile
+      dockerfile: aaronk2711/itbackend
     ports:
       - "5000:5000"
     volumes:
