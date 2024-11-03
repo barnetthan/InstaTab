@@ -24,7 +24,7 @@ function HomePage() {
   ];
 
   const fetchAPI = async () => {
-    const response = await axios.get("http://localhost:8080/api/songs");
+    const response = await axios.get("http://localhost:60000/api/songs");
     console.log(response.data.tabs[0].string);
 
 
