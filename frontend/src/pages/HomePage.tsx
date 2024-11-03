@@ -85,7 +85,6 @@ function HomePage() {
         <br/>
       </form>
       <GuitarTab song={songs[0]} />
-      {JSON.parse(localStorage.getItem("songs")!).length}
     </>
   );
 }
