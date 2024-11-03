@@ -1,29 +1,18 @@
 import NavBar from "../components/NavBar";
-import "../styles/Tabs.css";
+import "../styles/App.css";
 import SongTabs from "../components/SongDisplayBox";
 import SongListBox from "../components/SongListBox";
 
 function HistoryPage() {
   return (
-    <div className="historypage">
-      <NavBar curPage="history" />
-      <div
-        style={{
-          display: "flex",
-          justifyContent: "center",
-        }}
-      >
+    <div>
+      <NavBar curPage="history"/>
+      <div className="history-title">
         <h1>Song History</h1>
       </div>
-      <div
-        style={{
-          display: "flex",
-          flexDirection: "row",
-          justifyContent: "center",
-        }}
-      >
-        <SongListBox />
-        <SongTabs />
+      <div className="history-con">
+        <SongListBox/>
+        <SongTabs/>
       </div>
     </div>
   );

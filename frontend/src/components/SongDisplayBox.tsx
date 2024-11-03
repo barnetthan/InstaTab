@@ -1,14 +1,14 @@
 import { useContext } from "react";
 import { SongsContext } from "../SongsContext";
 import GuitarTab from "./GuitarTab";
-import "../styles/Tabs.css";
+import "../styles/App.css";
 
 function SongDisplayBox() {
   const songsContext = useContext(SongsContext);
   const { cur } = songsContext!;
 
   return (
-    <div style={{ paddingLeft: "2vh" }} className="infoBox">
+    <div className="infoBox">
       {cur ? (
         <>
           <h2>Guitar Tabs for {cur.title}</h2>

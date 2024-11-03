@@ -75,7 +75,7 @@ function HomePage() {
 
   return (
     <div className="homepage">
-      <NavBar curPage="home" />
+      <NavBar curPage="home"/>
       <h1>Welcome to InstaTab!</h1>
       <p>
         Upload a YouTube link or MP3 file to tranform music into guitar tabs

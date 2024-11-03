@@ -1,6 +1,6 @@
 import { useContext, useState } from "react";
 import { SongsContext } from "../SongsContext";
-import "../styles/Tabs.css";
+import "../styles/App.css";
 import SongListItem from "./SongListItem";
 
 function SongListBox() {
@@ -16,39 +16,24 @@ function SongListBox() {
   }
 
   return (
-    <div>
-      <div style={{ display: "flex", justifyContent: "center" }}>
+    <div className="input-side-con">
+      <div className="search-songs">
         <b>Search Songs</b>&nbsp;
-        <input
-          value={searchQuery}
-          onChange={(e) => {
+        <input value={searchQuery} onChange=
+          {(e) => {
             setSearchQuery(e.target.value);
           }}
           type="text"
         />
       </div>
-      <div
-        style={{
-          display: "flex",
-          justifyContent: "center",
-          marginBottom: "-3vh",
-          marginTop: "1vh",
-        }}
-      >
-        <button
-          style={{ cursor: "pointer" }}
-          onClick={() => {
-            setShowFaves(!showFaves);
-          }}
-        >
+
+      <div>
+        <button onClick={() => {setShowFaves(!showFaves);}}>
           {showFaves ? <>Show All</> : <>Show Favorites Only</>}
         </button>
-        &nbsp; &nbsp;
-        <button
-          style={{ cursor: "pointer" }}
-          onClick={clearFaves}
-          disabled={faves.length == 0}
-        >
+        &nbsp; 
+        &nbsp;
+        <button onClick={clearFaves} disabled={faves.length == 0}>
           Clear All Favorites ({faves.length})
         </button>
       </div>
@@ -65,7 +50,7 @@ function SongListBox() {
             }
           })
           .map((s) => (
-            <SongListItem song={s} />
+            <SongListItem song={s}/>
           ))}
       </div>
     </div>
