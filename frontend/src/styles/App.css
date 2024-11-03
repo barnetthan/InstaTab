@@ -8,6 +8,15 @@
   --clr-dark: #19191C;
 }
 
+@font-face {
+  font-family: 'Kamikaze';
+  src: url('customFonts/subset-Kamikaze-Regular.woff2') format('woff2'),
+      url('customFonts/subset-Kamikaze-Regular.woff') format('woff');
+  font-weight: normal;
+  font-style: normal;
+  font-display: optional;
+}
+
 button {
   cursor: pointer;
 }
@@ -86,8 +95,11 @@ nav li {
 }
 
 .homepage > form {
-  
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
 }
+
 
 .titleForm {
   

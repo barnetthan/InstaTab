@@ -5,7 +5,7 @@ import SongListBox from "../components/SongListBox";
 
 function HistoryPage() {
   return (
-    <>
+    <div className="historypage">
       <NavBar curPage="history" />
       <div
         style={{
@@ -25,7 +25,7 @@ function HistoryPage() {
         <SongListBox />
         <SongTabs />
       </div>
-    </>
+    </div>
   );
 }
 
