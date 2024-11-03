@@ -2,3 +2,4 @@ myenv
 **/*.mp3
 **/*.pyc
 **/*.wav
+**/__pycache__
