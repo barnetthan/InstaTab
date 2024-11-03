@@ -5,6 +5,8 @@ import { useContext } from "react";
 import { SongsContext } from "../SongsContext";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import logo1 from "../assets/InstaTab logo.png"
+import logo2 from "../assets/Logo_nobg.png"
 
 function HomePage() {
   const [link, setLink] = useState<string>("");

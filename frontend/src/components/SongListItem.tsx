@@ -31,7 +31,9 @@ function SongListItem({ song }: SongListItemProps) {
         justifyContent: "space-between",
         alignItems: "center",
         backgroundColor: cur && cur.id == song.id ? "lightgray" : "white",
+        cursor: "pointer",
       }}
+      onClick={() => {setCur(song)}}
     >
       <div
         style={{ fontWeight: cur && cur.id == song.id ? "bolder" : "normal" }}
