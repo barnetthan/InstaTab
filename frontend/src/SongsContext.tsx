@@ -27,7 +27,6 @@ export const SongsProvider = ({ children }: { children: ReactNode }) => {
 
   const dummySong: Song = {
     tabs: dummyTabs,
-    favorite: false,
     maxTime: 80,
     title: "Skeletons by Keshi",
     id: 0,

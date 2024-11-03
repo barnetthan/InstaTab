@@ -3,12 +3,16 @@ import { useState } from "react";
 import { Song } from "../types/types";
 import { useContext } from "react";
 import { SongsContext } from "../SongsContext";
+import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
 function HomePage() {
   const [link, setLink] = useState<string>("");
   const [title, setTitle] = useState<string>("");
   const songsContext = useContext(SongsContext);
-  const { songs, setSongs } = songsContext!;
+  const { songs, setSongs, setCur } = songsContext!;
+
+  const navigate = useNavigate();
 
   const dummyTabs = [
     { string: 0, time: 27, fret: 3 },
@@ -19,12 +23,10 @@ function HomePage() {
     { string: 5, time: 5, fret: 0 },
   ];
 
-  function handleSubmit() {
-    // implicity validates the input
-    const url = new URL(link);
+  const fetchAPI = async () => {
+    const response = await axios.get("http://localhost:8080/api/songs");
+    console.log(response.data.tabs[0].string);
 
-    // call api endpoint with current link
-    // ex: axios.get(`https://api.example.com/getdata/${link}`);
 
     let id = 0;
     if (songs.length > 0) {
@@ -32,16 +34,41 @@ function HomePage() {
     }
 
     const newSong: Song = {
-      tabs: dummyTabs,
-      favorite: false,
-      maxTime: 40,
-      title: title.length > 0 ? title : "Untitled Song " + id,
+      tabs: response.data.tabs,
+      maxTime: response.data.maxTime,
+      title: title.length > 0 ? title : "Untitled Song 69420 " + id,
       id: id,
     };
-
     setSongs([...songs, newSong]);
+    setCur(newSong);
+    // setArray(response.data.songs);
+  }
+
+  function handleSubmit() {
+    // implicity validates the input
+    const url = new URL(link);
+
+    // call api endpoint with current link
+    // ex: axios.get(`https://api.example.com/getdata/${link}`);
+
+    // let id = 0;
+    // if (songs.length > 0) {
+    //   id = songs[songs.length - 1].id + 1;
+    // }
+
+    // const newSong: Song = {
+    //   tabs: dummyTabs,
+    //   maxTime: 40,
+    //   title: title.length > 0 ? title : "Untitled Song " + id,
+    //   id: id,
+    // };
+
+    // setSongs([...songs, newSong]);
+    fetchAPI();
+
     setLink("");
     setTitle("");
+    navigate("/history");
   }
 
   return (
@@ -82,6 +109,8 @@ function HomePage() {
         </button>
         <br />
       </form>
+      {/* {array.map((s) => (<div>{s}</div>))} */}
+      <button onClick={fetchAPI}>GET DATA BABYY</button>
     </div>
   );
 }
