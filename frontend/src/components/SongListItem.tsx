@@ -1,4 +1,4 @@
-import "../styles/Tabs.css";
+import "../styles/App.css";
 import { FaRegStar, FaStar } from "react-icons/fa"; // Font Awesome
 import { useContext } from "react";
 import { SongsContext } from "../SongsContext";
@@ -39,23 +39,10 @@ function SongListItem({ song }: SongListItemProps) {
         {song.title}
       </div>
       <div
-        style={{ display: "flex", alignItems: "center", marginRight: "10px" }}
+        style={{ cursor: "pointer", marginRight: "10px" }}
+        onClick={handleFavorite}
       >
-        <div
-          style={{ cursor: "pointer", marginRight: "10px" }}
-          onClick={handleFavorite}
-        >
-          {faves.includes(song.id) ? <FaStar /> : <FaRegStar />}
-        </div>
-        &nbsp;
-        <button
-          style={{ cursor: "pointer" }}
-          onClick={() => {
-            setCur(song);
-          }}
-        >
-          View
-        </button>
+        {faves.includes(song.id) ? <FaStar /> : <FaRegStar />}
       </div>
     </div>
   );
