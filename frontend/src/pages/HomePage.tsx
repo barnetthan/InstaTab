@@ -81,9 +81,8 @@ function HomePage() {
         Upload a YouTube link or MP3 file to tranform music into guitar tabs
         instantly!
       </p>
-      <form className="homepage">
+      <form>
         <label>Song Title:</label>
-        &nbsp;
         <input
           className="titleForm"
           type="text"
@@ -93,9 +92,7 @@ function HomePage() {
           }}
           placeholder="Best Song Ever!"
         />
-        &nbsp;
         <label>Link:</label>
-        &nbsp;
         <input
           className="urlForm"
           type="url"
@@ -105,14 +102,10 @@ function HomePage() {
           }}
           placeholder="https://www.example.com"
         />
-        &nbsp;
         <button disabled={!link} onClick={handleSubmit}>
-          Submit
+          SUBMIT
         </button>
-        <br />
       </form>
-      {/* {array.map((s) => (<div>{s}</div>))} */}
-      <button onClick={fetchAPI}>GET DATA BABYY</button>
     </div>
   );
 }

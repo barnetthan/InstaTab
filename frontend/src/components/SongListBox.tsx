@@ -27,12 +27,10 @@ function SongListBox() {
         />
       </div>
 
-      <div>
+      <div className="filter-songs">
         <button onClick={() => {setShowFaves(!showFaves);}}>
           {showFaves ? <>Show All</> : <>Show Favorites Only</>}
         </button>
-        &nbsp; 
-        &nbsp;
         <button onClick={clearFaves} disabled={faves.length == 0}>
           Clear All Favorites ({faves.length})
         </button>

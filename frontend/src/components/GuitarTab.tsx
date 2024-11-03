@@ -1,5 +1,5 @@
 import { ReactElement } from "react";
-import "../styles/Tabs.css";
+import "../styles/App.css";
 import { Song, Tab } from "../types/types";
 
 interface GuitarTabProps {

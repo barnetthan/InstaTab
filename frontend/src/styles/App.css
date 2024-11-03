@@ -28,7 +28,6 @@ button {
 }
 
 body {
-  height: 100vw;
   background-color: var(--clr-dark);
   color: var(--font-clr);
 }
@@ -95,45 +94,79 @@ nav li {
 }
 
 .homepage > form {
+  margin-top: 2em;
   display: flex;
   flex-direction: column;
-  gap: 10px;
+  align-items: center;
+  gap: 1em;
 }
 
-
 .titleForm {
-  
+  width: 25%;
+  height: 3em;
+  border: 0;
+  border-radius: 4em;
+  padding-inline: 2em;
 }
 
 .urlForm {
+  width: 70%;
+  height: 3.5em;
+  border: 0;
+  border-radius: 1em;
+  padding-inline: 2em;
+  font-size: larger;
+}
 
+.homepage > form > button {
+  font-weight: 900;
+  font-size: 1.5em;
+  padding: 1em; 
+  border: 0;
+  border-radius: 1em;
 }
 
 /* ----------------------------------------- */
 
 .history-title {
   text-align: center;
-  font-size: 2em;
-  padding: 2em 0;
+  font-size: 1.5em;
+  padding: 1.5em 0;
 }
 
 .history-con {
   display: flex;
   justify-content: center;
-  gap: 10%;
+  gap: 2.5%;
+  padding: 0 2em;
+  height: 35vw;
 }
 
 .input-side-con {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
   text-align: center;
-  width: 45%;
+  width: 32.5%;
 }
 
 .infoBox {
-  width: 45%;
+  background-color: var(--clr-rich);
+  width: 65%;
+  padding: 2.5em;
+  overflow-y: scroll;
+  text-align: center;
+}
+
+.tabBox {
+  display: inline-block;
+  width: 1.5em;
+  height: 1.5em;
+  font-size: 1em;
 }
 
 .search-songs {
-  font-size: 1.5em;
+  font-size: 1.25em;
   display: flex;
   justify-content: space-evenly;
   align-items: center;
@@ -142,20 +175,35 @@ nav li {
 .search-songs > input {
   border: 0;
   border-radius: 1em;
-  width: 60%;
-  height: 1.5em;
+  width: 50%;
+  height: 2.5em;
+  padding-inline: 1em;
+}
+
+.filter-songs {
+  display: flex;
+  justify-content: space-evenly;
+}
+
+.filter-songs > button {
+  padding: 1em;
+  border-radius: 1.5em;
+  font-weight: 700;
+  border: 0;
 }
 
 .listBox {
-  height: 20em;
-  margin-top: 2em;
-  padding: 0.25em;
-  background-color: #1D263B;
+  height: 70%;
+  padding: 0.5em;
+  background-color: var(--clr-rich);
+  overflow-y: scroll;
+  border-radius: 1em;
 }
 
 .listItem {
   height: 5em;
-  padding-left: 3em;
+  padding: 0 1em 0 2em;
+  border-radius: 0.5em;
 }
 
 .listItem > div {
