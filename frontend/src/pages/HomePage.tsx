@@ -1,6 +1,7 @@
 import NavBar from "../components/NavBar";
 import { useState } from "react";
 import GuitarTab from "../components/GuitarTab";
+import "../styles/HomePage.css";
 
 export interface Song {
   tabs: Tab[];
@@ -52,7 +53,7 @@ function HomePage() {
         instantly!
       </p>
       <form>
-        <label>Add Link:</label>
+        <label>Add Link: </label>
         <input
           type="url"
           value={link}
