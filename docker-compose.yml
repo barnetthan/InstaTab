@@ -11,7 +11,8 @@ services:
       - /app/node_modules # Persist node_modules inside the container
 
   backend:
-    image: aaronk2711/itbackend
+    # image: aaronk2711/itbackend
+    image: instatab-backend
     # build:
     #   context: .
     #   dockerfile: aaronk2711/itbackend

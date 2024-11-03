@@ -26,7 +26,7 @@ app:
 # 	exit 1
 # endif
 build-frontend:
-	docker buildx -t $(FRONTEND_IMAGE) -f frontend/Dockerfile .
+	docker build -t $(FRONTEND_IMAGE) -f frontend/Dockerfile .
 
 build-backend:
 	docker build -t $(BACKEND_IMAGE) -f backend/Dockerfile .
@@ -34,6 +34,10 @@ build-backend:
 push-backend:
 	docker tag instatab-backend aaronk2711/itbackend
 	docker push aaronk2711/itbackend
+
+push-frontend:
+	docker tag instatab-frontend aaronk2711/itfrontend
+	docker push aaronk2711/itfrontend
 
 # # Build backend based on architecture
 # build-backend:

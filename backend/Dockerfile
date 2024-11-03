@@ -12,9 +12,11 @@ RUN apt update && apt install -y ffmpeg
 # # Install dependencies
 # RUN pip install --no-cache-dir -r requirements.txt
 # Upgrade pip and install dependencies
-RUN pip install --upgrade pip && \
-    pip install -r requirements.txt
+RUN pip install --upgrade pip
 
+RUN pip install numpy==1.22.0
+
+RUN pip install -r requirements.txt
 # Copy the rest of the backend code
 COPY backend ./
 

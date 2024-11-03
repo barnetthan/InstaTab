@@ -1,5 +1,6 @@
 import sys
-from input import take_input
+from .inpututils import take_input
+from .wavhelper import convert_wav_to_midi
 import librosa
 from spleeter.separator import Separator
 import os
@@ -7,17 +8,18 @@ import asyncio
 import music21
 import pretty_midi
 from music21 import stream, note, meter, converter, instrument, stream
-from midiutil import MIDIFile
-import mir_eval
+# from midiutil import MIDIFile
+# import mir_eval
 import pdb
 # import pydsm
 # import midi2tab
 import numpy as np
 import mido
+from tayuya import MIDIParser, Tabs
 
 async def make_tabs(video: str):
     # Convert the YouTube video to WAV
-    wav_file = await take_input(video)
+    # wav_file = await take_input(video)
 
     # guitar_track = await extract_guitar_track(wav_file)
 
@@ -25,12 +27,15 @@ async def make_tabs(video: str):
     #
 
     # pdb.set_trace()
-    midi = convert_wav_to_midi(wav_file)
+    # midi =
+    # convert_wav_to_midi(wav_file)
+
+    # midi_file = 'test_wav.mid'
 
 
-    # notes = detect_notes(wav_file)
+    # # notes = detect_notes(wav_file)
 
-    tabs = midi_to_tabs('temp_output.mid')
+    # tabs = midi_to_tabs(midi_file)
 
     # normalized_notes = normalize_notes(notes)
 
@@ -40,22 +45,24 @@ async def make_tabs(video: str):
     #     print(f'String {string}, Fret {round(fret)}')
 
     # print(len(tabs))
+    #
+    # return [{"string": 0, "time": 0, "fret": 5}]
 
     print("Complete")
 
 
-async def extract_guitar_track(wav_file):
-    # Initialize spleeter separator
-    separator = Separator('spleeter:2stems')
+# async def extract_guitar_track(wav_file):
+#     # Initialize spleeter separator
+#     separator = Separator('spleeter:2stems')
 
-    # Separate the audio into vocals and accompaniment
-    loop = asyncio.get_event_loop()
-    await loop.run_in_executor(None, separator.separate_to_file, wav_file, 'output')
+#     # Separate the audio into vocals and accompaniment
+#     loop = asyncio.get_event_loop()
+#     await loop.run_in_executor(None, separator.separate_to_file, wav_file, 'output')
 
-    # The separated guitar track will be in the 'output' directory
-    guitar_track = os.path.join('output', 'temp_video', 'accompaniment.wav')
+#     # The separated guitar track will be in the 'output' directory
+#     guitar_track = os.path.join('output', 'temp_video', 'accompaniment.wav')
 
-    return guitar_track
+#     return guitar_track
 
 
 # def detect_notes(wav_file, magnitude_threshold=100.0):
@@ -199,68 +206,68 @@ async def extract_guitar_track(wav_file):
 #     pm.write(midi_file)
 
 
-def hz_to_note_num(hz):
-    """
-    Converts a frequency in Hz to a MIDI note number.
+# def hz_to_note_num(hz):
+#     """
+#     Converts a frequency in Hz to a MIDI note number.
 
-    Args:
-        hz (float): The frequency in Hertz.
+#     Args:
+#         hz (float): The frequency in Hertz.
 
-    Returns:
-        int: The MIDI note number.
-    """
+#     Returns:
+#         int: The MIDI note number.
+#     """
 
-    A4_freq = 440.0  # Reference frequency for A4
-    return 12 * np.log2(hz / A4_freq) + 69
+#     A4_freq = 440.0  # Reference frequency for A4
+#     return 12 * np.log2(hz / A4_freq) + 69
 
-def convert_wav_to_midi(wav_file, fmin=32.7032, n_bins=84):
-    """
-    Converts a WAV file to a MIDI file using librosa and pretty_midi.
+# def convert_wav_to_midi(wav_file, fmin=32.7032, n_bins=84):
+#     """
+#     Converts a WAV file to a MIDI file using librosa and pretty_midi.
 
-    Args:
-        wav_file (str): Path to the input WAV file.
-        output_midi_file (str): Path to the output MIDI file.
-        fmin (float, optional): Minimum frequency of the CQT. Defaults to None, which uses librosa's default.
-        n_bins (int, optional): Number of frequency bins in the CQT. Defaults to None, which uses librosa's default.
-    """
+#     Args:
+#         wav_file (str): Path to the input WAV file.
+#         output_midi_file (str): Path to the output MIDI file.
+#         fmin (float, optional): Minimum frequency of the CQT. Defaults to None, which uses librosa's default.
+#         n_bins (int, optional): Number of frequency bins in the CQT. Defaults to None, which uses librosa's default.
+#     """
 
-    # Load the audio file
-    y, sr = librosa.load(wav_file, mono=True)
+#     # Load the audio file
+#     y, sr = librosa.load(wav_file, mono=True)
 
-    # Convert audio to a pitch representation (e.g., using CQT)
-    C = librosa.cqt(y, sr=sr, fmin=fmin, n_bins=n_bins)
+#     # Convert audio to a pitch representation (e.g., using CQT)
+#     C = librosa.cqt(y, sr=sr, fmin=fmin, n_bins=n_bins)
 
-    # Detect onsets and offsets of notes
-    onset_frames = librosa.onset.onset_detect(y=y, sr=sr)
-    onset_times = librosa.frames_to_time(onset_frames, sr=sr)
+#     # Detect onsets and offsets of notes
+#     onset_frames = librosa.onset.onset_detect(y=y, sr=sr)
+#     onset_times = librosa.frames_to_time(onset_frames, sr=sr)
 
-    # Estimate note durations (e.g., using tempo estimation)
-    tempo, beats = librosa.beat.beat_track(y=y, sr=sr)
-    beat_times = librosa.frames_to_time(beats, sr=sr)
+#     # Estimate note durations (e.g., using tempo estimation)
+#     tempo, beats = librosa.beat.beat_track(y=y, sr=sr)
+#     beat_times = librosa.frames_to_time(beats, sr=sr)
 
-    # Create a PrettyMIDI object
-    midi = pretty_midi.PrettyMIDI()
+#     # Create a PrettyMIDI object
+#     midi = pretty_midi.PrettyMIDI()
 
-    # Create an instrument (e.g., piano)
-    instrument = pretty_midi.Instrument(program=0)
+#     # Create an instrument (e.g., piano)
+#     instrument = pretty_midi.Instrument(program=0)
 
-    # Iterate over detected onsets and create MIDI notes
-    for onset_time, beat_time in zip(onset_times, beat_times):
-        # Estimate pitch from the CQT matrix
-        pitch = np.argmax(C[:, int(librosa.time_to_frames(onset_time, sr=sr))])
-        frequency = librosa.cqt_frequencies(fmin=fmin, n_bins=n_bins)[pitch]
-        note_number = hz_to_note_num(frequency)
+#     # Iterate over detected onsets and create MIDI notes
+#     for onset_time, beat_time in zip(onset_times, beat_times):
+#         # Estimate pitch from the CQT matrix
+#         pitch = np.argmax(C[:, int(librosa.time_to_frames(onset_time, sr=sr))])
+#         frequency = librosa.cqt_frequencies(fmin=fmin, n_bins=n_bins)[pitch]
+#         note_number = hz_to_note_num(frequency)
 
-        # Estimate note duration based on the next onset or beat time
-        duration = next((t - onset_time for t in onset_times if t > onset_time), beat_time - onset_time)
+#         # Estimate note duration based on the next onset or beat time
+#         duration = next((t - onset_time for t in onset_times if t > onset_time), beat_time - onset_time)
 
-        # Create a MIDI note and add it to the instrument
-        note = pretty_midi.Note(velocity=100, pitch=int(round(note_number)), start=onset_time, end=onset_time + duration)
-        instrument.notes.append(note)
+#         # Create a MIDI note and add it to the instrument
+#         note = pretty_midi.Note(velocity=100, pitch=int(round(note_number)), start=onset_time, end=onset_time + duration)
+#         instrument.notes.append(note)
 
-    # Add the instrument to the MIDI object and write to file
-    midi.instruments.append(instrument)
-    midi.write('temp_output.mid')
+#     # Add the instrument to the MIDI object and write to file
+#     midi.instruments.append(instrument)
+#     midi.write('temp_output.mid')
 # # Example usage
 # wav_file = 'your_audio.wav'
 # output_midi_file = 'output.mid'
@@ -331,6 +338,17 @@ def midi_to_tabs(midi_file):
         None
     """
 
+    # mid = MIDIParser(midi_file, track=0)
+    # tabs = Tabs(notes=mid.notes_played(), key=mid.get_key())
+    # tabs.generate_notes(tabs.find_start())
+
+    mid = MIDIParser(midi_file, track=0)
+    tabs = Tabs(notes=mid.notes_played(), key=mid.get_key())
+    pdb.set_trace()
+    print(tabs)
+    # print(tabs.generate_notes())
+    # print(mid.render_tabs())
+
     # # Load the MIDI file
     # midi_stream = converter.parse(midi_file)
 
@@ -353,51 +371,51 @@ def midi_to_tabs(midi_file):
 
 
     # Define standard guitar tuning
-    tuning = ['E2', 'A2', 'D3', 'G3', 'B3', 'E4']
+    # tuning = ['E2', 'A2', 'D3', 'G3', 'B3', 'E4']
 
-    # Load the MIDI file
-    midi_data = pretty_midi.PrettyMIDI(midi_file)
+    # # Load the MIDI file
+    # midi_data = pretty_midi.PrettyMIDI(midi_file)
 
-    # Create an empty list to store the tab notation
-    tabs = []
+    # # Create an empty list to store the tab notation
+    # tabs = []
 
-    # Iterate over all instruments in the MIDI file
-    for instrument in midi_data.instruments:
-        # Filter for guitar (you may need to adjust this)
-        # if instrument.name.lower() == 'guitar':
-            i = 0
-            for note in instrument.notes:
-                # Extract note information
-                pitch = note.pitch
-                start_time = note.start
-                end_time = note.end
+    # # Iterate over all instruments in the MIDI file
+    # for instrument in midi_data.instruments:
+    #     # Filter for guitar (you may need to adjust this)
+    #     # if instrument.name.lower() == 'guitar':
+    #         i = 0
+    #         for note in instrument.notes:
+    #             # Extract note information
+    #             pitch = note.pitch
+    #             start_time = note.start
+    #             end_time = note.end
 
-                # Find the closest string to the note
-                closest_string = None
-                closest_distance = float('inf')
-                for i, string_note in enumerate(tuning):
-                    string_note_number = pretty_midi.note_name_to_number(string_note)
-                    distance = abs(pitch - string_note_number)
-                    if distance < closest_distance:
-                        closest_distance = distance
-                        closest_string = i
+    #             # Find the closest string to the note
+    #             closest_string = None
+    #             closest_distance = float('inf')
+    #             for i, string_note in enumerate(tuning):
+    #                 string_note_number = pretty_midi.note_name_to_number(string_note)
+    #                 distance = abs(pitch - string_note_number)
+    #                 if distance < closest_distance:
+    #                     closest_distance = distance
+    #                     closest_string = i
 
-                # Calculate the fret position
-                fret = pitch - pretty_midi.note_name_to_number(tuning[closest_string])
-                if fret < 0:
-                    fret += 12  # Add 12 to bring it within the valid range
+    #             # Calculate the fret position
+    #             fret = pitch - pretty_midi.note_name_to_number(tuning[closest_string])
+    #             if fret < 0:
+    #                 fret += 12  # Add 12 to bring it within the valid range
 
-                # Add the tab notation to the list
-                currentNote = {"string": closest_string + 1, "time": i, "fret": fret}
-                tabs.append(currentNote)
-                tabs.sort(key=lambda x: x['string'])
-                i += 1
+    #             # Add the tab notation to the list
+    #             currentNote = {"string": closest_string + 1, "time": i, "fret": fret}
+    #             tabs.append(currentNote)
+    #             tabs.sort(key=lambda x: x['string'])
+    #             i += 1
 
-    # Print the tab notation
-    for string, fret in tabs:
-        print(f'String {string}, Fret {fret}')
+    # # Print the tab notation
+    # for string, fret in tabs:
+    #     print(f'String {string}, Fret {fret}')
 
-    return tabs
+    # return tabs
 
 # def detect_notes(wav_file, magnitude_threshold=0.0, similarity_threshold=0.1, time_threshold=0.01):
 #     y, sr = librosa.load(wav_file, sr=None)
@@ -435,38 +453,38 @@ def midi_to_tabs(midi_file):
 #     return normalized_notes
 
 
-def normalize_notes(midi_notes):
-    # Convert MIDI notes to music21 notes
-    music21_notes = [music21.note.Note(midi=int(note)) for note in midi_notes]
+# def normalize_notes(midi_notes):
+#     # Convert MIDI notes to music21 notes
+#     music21_notes = [music21.note.Note(midi=int(note)) for note in midi_notes]
 
-    # Create a music21 stream
-    stream = music21.stream.Stream(music21_notes)
+#     # Create a music21 stream
+#     stream = music21.stream.Stream(music21_notes)
 
-    # Analyze the key of the piece
-    key = stream.analyze('key')
-    print(f"Detected key: {key}")
+#     # Analyze the key of the piece
+#     key = stream.analyze('key')
+#     print(f"Detected key: {key}")
 
-    # # Transpose the stream to C major or A minor
-    # if key.mode == 'major':
-    #     interval = music21.interval.Interval(key.tonic, music21.pitch.Pitch('C'))
-    # else:
-    #     interval = music21.interval.Interval(key.tonic, music21.pitch.Pitch('A'))
+#     # # Transpose the stream to C major or A minor
+#     # if key.mode == 'major':
+#     #     interval = music21.interval.Interval(key.tonic, music21.pitch.Pitch('C'))
+#     # else:
+#     #     interval = music21.interval.Interval(key.tonic, music21.pitch.Pitch('A'))
 
-    # transposed_stream = stream.transpose(interval)
+#     # transposed_stream = stream.transpose(interval)
 
-    # Convert transposed notes back to MIDI
-    # normalized_notes = [note.pitch.midi for note in transposed_stream.notes]
+#     # Convert transposed notes back to MIDI
+#     # normalized_notes = [note.pitch.midi for note in transposed_stream.notes]
 
-    # Ensure notes are within the guitar range
-    # final_notes = []
-    # for note in normalized_notes:
-    #     while note > 64:  # E4 (highest open string on a standard-tuned guitar)
-    #         note -= 12  # Transpose down one octave
-    #     while note < 40:  # E2 (lowest open string on a standard-tuned guitar)
-    #         note += 12  # Transpose up one octave
-    #     final_notes.append(note)
+#     # Ensure notes are within the guitar range
+#     # final_notes = []
+#     # for note in normalized_notes:
+#     #     while note > 64:  # E4 (highest open string on a standard-tuned guitar)
+#     #         note -= 12  # Transpose down one octave
+#     #     while note < 40:  # E2 (lowest open string on a standard-tuned guitar)
+#     #         note += 12  # Transpose up one octave
+#     #     final_notes.append(note)
 
-    return normalized_notes
+#     return normalized_notes
 
 
 # def midi_to_tab(midi_notes):
