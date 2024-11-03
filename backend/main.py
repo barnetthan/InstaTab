@@ -4,8 +4,8 @@ from flask_cors import CORS
 app = Flask(__name__)
 cors = CORS(app, origins='*')
 
-@app.route("/api/songs", methods=['GET'])
-def songs():
+@app.route("/api/songs/<path:url>", methods=['GET'])
+def songs(url):
   return jsonify (
     {
       "tabs": [
@@ -40,7 +40,9 @@ def songs():
         {"string": 5, "time": 36, "fret": 4},
         {"string": 5, "time": 42, "fret": 5}
       ],
-      "maxTime": 78,
+      "maxTime": 42,
+      "len": len(url),
+      "url": url,
     }
   )
 

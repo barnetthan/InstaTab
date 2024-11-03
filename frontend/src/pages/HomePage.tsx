@@ -24,8 +24,10 @@ function HomePage() {
   ];
 
   const fetchAPI = async () => {
-    const response = await axios.get("http://localhost:60000/api/songs");
-    console.log(response.data.tabs[0].string);
+    const encodedLink = encodeURIComponent(link); // Encode the URL
+    const response = await axios.get(`http://localhost:60000/api/songs/${encodedLink}`);
+    console.log(response.data.len);
+    console.log(response.data.url);
 
 
     let id = 0;
