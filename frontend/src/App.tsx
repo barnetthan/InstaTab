@@ -3,10 +3,12 @@ import HomePage from './pages/HomePage'
 import HistoryPage from './pages/HistoryPage';
 import FavoritesPage from './pages/FavoritesPage';
 import "./styles/App.css";
+import { SongsProvider } from './SongsContext';
 
 function App() {
+
   return (
-    <>
+    <SongsProvider>
       <BrowserRouter>
       <Routes>
         <Route path="/" element={<HomePage />} />
@@ -14,7 +16,7 @@ function App() {
         <Route path="/favorites" element={<FavoritesPage />} />
       </Routes>
       </BrowserRouter>
-    </>
+    </SongsProvider>
   )
 }
 

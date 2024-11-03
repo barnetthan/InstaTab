@@ -1,7 +1,36 @@
 .tabBox {
   display: inline-block; /* Allow width and height */
-  width: 3vw; 
-  height: 3vw; 
-  font-size: 3vw; 
+  width: 2vw; 
+  height: 2vw; 
+  font-size: 2vw; 
   text-align: center;
 }
+
+.listBox {
+  border-style:  solid;
+  border-color: black;
+  width: 25vw; 
+  height: 70vh; 
+  margin: 5vh;
+  overflow-y: scroll;
+  overflow-x: hidden;
+}
+
+.listItem {
+  border-bottom: solid;
+  border-color: black;
+  width: 25vw; 
+  height: 6vh;
+  display: flex;
+  align-items: center;
+  padding-left: 1vw;
+}
+
+.infoBox {
+  border-style:  solid;
+  border-color: black;
+  width: 65vw; 
+  height: 75vh; 
+  overflow-y: scroll;
+}
+
