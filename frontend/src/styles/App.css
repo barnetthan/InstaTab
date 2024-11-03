@@ -1,3 +1,98 @@
+:root {
+  --font-clr: white;
+  --hl-blue: #2596BE;
+  --hl-pink: #FFB7C5;
+  --hl-red: #C75945;
+  --clr-moody: #706DE2;
+  --clr-rich: #1D263B;
+  --clr-dark: #19191C;
+}
+
 button {
   cursor: pointer;
+}
+
+
+* {
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  height: 100vw;
+  background-color: var(--clr-dark);
+  color: var(--font-clr);
+}
+
+nav {
+  background-image: linear-gradient(var(--hl-pink), 20%, var(--clr-rich));
+  /* box-shadow: 0 0px 5px 0 var(--clr-moody); */
+  color: rgb(0, 0, 0);
+  display: flex;
+  justify-content: space-between;
+  font-family: "Kamikaze";
+  height: 7em;
+  position: sticky;
+  top: 0;
+  padding: 0 4em;
+}
+
+nav h1 {
+  font-size: 2em;
+  font-weight: 400;
+}
+
+nav ul {
+  padding: 0;
+  margin: 0;
+  list-style: none;
+  display: flex;
+  gap: 1em;
+  text-underline-offset: 0.3em;
+}
+
+nav a {
+  color: inherit;
+  display: flex;
+  justify-content: center;
+  text-decoration: none;
+  align-items: center;
+}
+
+nav li {
+  height: 100%;
+  width: 5em;
+  display: flex;
+  justify-content: center;
+  font-size: 1em;
+  font-family: 'Kamikaze';
+}
+
+/* ----------------------------------------- */
+
+.homepage {
+  text-align: center;
+}
+
+.homepage > h1 {
+  font-size: 5em;
+  margin-top: 1em;
+  padding: 0.25em;
+}
+
+.homepage > p {
+  font-size: 1.5em;
+  padding: 0.25em;
+}
+
+.homepage > form {
+  
+}
+
+.titleForm {
+  
+}
+
+.urlForm {
+
 }

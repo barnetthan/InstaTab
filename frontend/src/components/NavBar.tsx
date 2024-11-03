@@ -1,5 +1,5 @@
 import { NavLink } from "react-router-dom";
-import "../styles/NavBar.css";
+import "../styles/App.css";
 // import "@fontsource/roboto/400.css";
 
 interface NavBarProps {
@@ -8,11 +8,11 @@ interface NavBarProps {
 
 export default function NavBar({ curPage }: NavBarProps) {
   return (
-    <nav className="nav">
+    <nav>
       <a href="/">
         <h1>InstaTab</h1>
       </a>
-      <ul style={{ marginRight: 50 }}>
+      <ul>
         <li className="special">
           <NavLink
             className="uladjust"

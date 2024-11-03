@@ -1,6 +1,5 @@
 import NavBar from "../components/NavBar";
 import { useState } from "react";
-import "../styles/HomePage.css";
 import { Song } from "../types/types";
 import { useContext } from "react";
 import { SongsContext } from "../SongsContext";
@@ -46,17 +45,18 @@ function HomePage() {
   }
 
   return (
-    <>
+    <div className="homepage">
       <NavBar curPage="home" />
       <h1>Welcome to InstaTab!</h1>
       <p>
         Upload a YouTube link or MP3 file to tranform music into guitar tabs
         instantly!
       </p>
-      <form>
+      <form className="homepage">
         <label>Song Title:</label>
         &nbsp;
         <input
+          className="titleForm"
           type="text"
           value={title}
           onChange={(e) => {
@@ -68,6 +68,7 @@ function HomePage() {
         <label>Link:</label>
         &nbsp;
         <input
+          className="urlForm"
           type="url"
           value={link}
           onChange={(e) => {
@@ -81,7 +82,7 @@ function HomePage() {
         </button>
         <br />
       </form>
-    </>
+    </div>
   );
 }
 
