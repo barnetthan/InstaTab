@@ -6,8 +6,7 @@ interface NavBarProps {
   curPage: string;
 }
 
-export default function NavBar({ curPage } : NavBarProps) {
-
+export default function NavBar({ curPage }: NavBarProps) {
   return (
     <nav className="nav">
       <a href="/">
@@ -34,17 +33,6 @@ export default function NavBar({ curPage } : NavBarProps) {
             to="/history"
           >
             History
-          </NavLink>
-        </li>
-        <li>
-          <NavLink
-            className="uladjust"
-            style={{
-              textDecorationLine: curPage == "favorites" ? "underline" : "none",
-            }}
-            to="/favorites"
-          >
-            Favorites
           </NavLink>
         </li>
       </ul>

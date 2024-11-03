@@ -1,10 +1,9 @@
 import NavBar from "../components/NavBar";
-import { useEffect, useState } from "react";
-import GuitarTab from "../components/GuitarTab";
+import { useState } from "react";
 import "../styles/HomePage.css";
 import { Song } from "../types/types";
-import { useContext } from 'react';
-import { SongsContext } from '../SongsContext';
+import { useContext } from "react";
+import { SongsContext } from "../SongsContext";
 
 function HomePage() {
   const [link, setLink] = useState<string>("");
@@ -37,7 +36,7 @@ function HomePage() {
       tabs: dummyTabs,
       favorite: false,
       maxTime: 40,
-      title: title.length > 0 ? title: "Untitled Song " + id,
+      title: title.length > 0 ? title : "Untitled Song " + id,
       id: id,
     };
 
@@ -55,9 +54,7 @@ function HomePage() {
         instantly!
       </p>
       <form>
-        <label>
-          Song Title:
-        </label>
+        <label>Song Title:</label>
         &nbsp;
         <input
           type="text"
@@ -82,9 +79,8 @@ function HomePage() {
         <button disabled={!link} onClick={handleSubmit}>
           Submit
         </button>
-        <br/>
+        <br />
       </form>
-      <GuitarTab song={songs[0]} />
     </>
   );
 }

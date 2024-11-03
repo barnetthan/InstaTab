@@ -1,16 +1,14 @@
 import "../styles/Tabs.css";
 import { FaRegStar, FaStar } from "react-icons/fa"; // Font Awesome
-import { useContext, useState } from 'react';
-import { SongsContext } from '../SongsContext';
+import { useContext } from "react";
+import { SongsContext } from "../SongsContext";
 import { Song } from "../types/types";
 
 interface SongListItemProps {
   song: Song;
 }
 
-function SongListItem({
-  song,
-}: SongListItemProps) {
+function SongListItem({ song }: SongListItemProps) {
   const songsContext = useContext(SongsContext);
   const { faves, setFaves, cur, setCur } = songsContext!;
 

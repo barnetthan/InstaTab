@@ -28,36 +28,46 @@ function GuitarTab({ song }: GuitarTabProps) {
       // Place frets on the correct positions in the line for each tab
       while (curIndex < song.tabs.length && song.tabs[curIndex].string === i) {
         const curTab: Tab = song.tabs[curIndex];
-        curLine = curLine.substring(0, curTab.time) + curTab.fret + curLine.substring(curTab.time + 1);
+        curLine =
+          curLine.substring(0, curTab.time) +
+          curTab.fret +
+          curLine.substring(curTab.time + 1);
         curIndex++;
       }
       lines.push(curLine);
     }
 
     // Chunk each string line into segments of 25 characters
-    for (let chunkStart = 0; chunkStart < song.maxTime; chunkStart += maxNotesPerLine) {
+    for (
+      let chunkStart = 0;
+      chunkStart < song.maxTime;
+      chunkStart += maxNotesPerLine
+    ) {
       for (let i = 0; i < 6; i++) {
-        const curLineChunk = lines[i].substring(chunkStart, chunkStart + maxNotesPerLine);
+        const curLineChunk = lines[i].substring(
+          chunkStart,
+          chunkStart + maxNotesPerLine
+        );
         const lineWithStringMarker = strings[i] + " " + curLineChunk;
 
         // Render each character in the line as a span element
         for (let j = 0; j < lineWithStringMarker.length; j++) {
-          arr.push(<span className="tabBox" key={`${i}-${chunkStart}-${j}`}>{lineWithStringMarker[j]}</span>);
+          arr.push(
+            <span className="tabBox" key={`${i}-${chunkStart}-${j}`}>
+              {lineWithStringMarker[j]}
+            </span>
+          );
         }
         arr.push(<br key={`linebreak-${i}-${chunkStart}`} />); // Break for each string line
       }
-      arr.push(<br/>);
+      arr.push(<br />);
       arr.push(<br key={`sectionbreak-${chunkStart}`} />); // Add an extra break between sections of 25 notes
     }
 
     return arr;
   }
 
-  return (
-    <>
-      {createTabs()}
-    </>
-  );
+  return <>{createTabs()}</>;
 }
 
 export default GuitarTab;
