@@ -34,8 +34,11 @@ export const SongsProvider = ({ children }: { children: ReactNode }) => {
   };
 
   const [songs, setSongs] = useState<Song[]>(() => {
-    const storedSongs = localStorage.getItem("songs");
-    return storedSongs ? JSON.parse(storedSongs) : [dummySong];
+    if (localStorage.getItem("songs")) {
+      const storedSongs = localStorage.getItem("songs");
+      return JSON.parse(storedSongs!);
+    }
+    return [dummySong];
   });
 
   const [faves, setFaves] = useState<number[]>(() => {
